@@ -1,3 +1,20 @@
-h1 {
-    color: red;
+.banner {
+    background: radial-gradient(ellipse at bottom, #9A999C, #0D080C);
+}
+
+.body-bg {
+    background: radial-gradient(ellipse at top, #9A999C, #0D080C);
+}
+
+.film-noir-title {
+    font-family: 'Francois One', sans-serif;
+    color: #D0D0D0;
+    filter: drop-shadow(4px 8px 1px #0D090C);
+    transform: skew(-15deg);
+}
+
+.film-noir-menu {
+    font-family: 'Francois One', sans-serif;
+    color: #FFFFFF;
+    filter: drop-shadow(1px 2px 1px #0D090C);
 }
