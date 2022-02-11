@@ -48,10 +48,10 @@ const sample = [
 ]
 
 export default function Chat() {
-    const [history, setHistory] = useState([])
+    const [history, setHistory] = useState([]);
 
     const callAPI = (message) => {
-        console.log(`Called API with message: ${ message }`)
+        console.log(`Called API with message: ${ message }`);
     }
 
     const addMessageToHistory = (user, message) => {
@@ -62,12 +62,16 @@ export default function Chat() {
                     text: message
                 }
             ]
-        )
+        );
+    }
+
+    const clearHistory = () => {
+        setHistory([]);
     }
 
     const sendMessage = (message) => {
         callAPI(message);
-        addMessageToHistory(true, message)
+        addMessageToHistory(true, message);
     }
 
     return (
@@ -76,7 +80,9 @@ export default function Chat() {
                 <Row className="mb-2 pe-3 clear-save-buttons">
                     <Col xs={2} className="ms-auto">
                         <ButtonGroup>
-                            <Button variant="outline-light" size="sm">
+                            <Button variant="outline-light"
+                                    size="sm"
+                                    onClick={clearHistory}>
                                 <i className="bi bi-x-circle chat-button-icon"> </i>
                             </Button>
                             <Button variant="outline-light" size="sm">
