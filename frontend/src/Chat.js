@@ -48,7 +48,28 @@ const sample = [
 ]
 
 export default function Chat() {
-    const [messages, setMessages] = useState(sample)
+    const [history, setHistory] = useState([])
+
+    const callAPI = (message) => {
+        console.log(`Called API with message: ${ message }`)
+    }
+
+    const addMessageToHistory = (user, message) => {
+        setHistory((prevState) =>
+            [...prevState,
+                {
+                    user: user,
+                    text: message
+                }
+            ]
+        )
+    }
+
+    const sendMessage = (message) => {
+        callAPI(message);
+        addMessageToHistory(true, message)
+    }
+
     return (
         <Col xs={9} md={6} className="mx-auto rounded-3 mb-5 chat-container">
             <div className="message-container" tabIndex="0">
@@ -64,9 +85,9 @@ export default function Chat() {
                         </ButtonGroup>
                     </Col>
                 </Row>
-                <ChatWindow messages={messages}/>
+                <ChatWindow messages={history}/>
             </div>
-            <TextEntryBox/>
+            <TextEntryBox sendMessage={sendMessage}/>
         </Col>
 
     )

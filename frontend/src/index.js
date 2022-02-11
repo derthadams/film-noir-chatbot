@@ -7,12 +7,7 @@ import "./index.css"
 
 import ChatApp from "./ChatApp"
 
-const TestPage = () => {
-    return (<div>
-        <ChatApp/>
-    </div>)
-}
 
 ReactDOM.render(
-        <TestPage />, document.getElementById("root")
+        <ChatApp/>, document.getElementById("root")
 );
