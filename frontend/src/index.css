@@ -6,6 +6,47 @@
     background: radial-gradient(ellipse at top, #9A999C, #0D080C);
 }
 
+.chat-container {
+    background-color: #AAA9AC;
+}
+
+.chat-button-icon {
+    font-size: 1rem;
+    color: white;
+}
+
+.chat-window {
+    display: grid;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.clear-save-buttons {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 6;
+}
+
+.content {
+    display: grid;
+}
+
+.bot-content {
+    justify-items: start;
+}
+
+.user-content {
+    justify-items: end;
+}
+
+.film-noir-menu {
+    font-family: 'Francois One', sans-serif;
+    color: #FFFFFF;
+    filter: drop-shadow(1px 2px 1px #0D090C);
+}
+
 .film-noir-title {
     font-family: 'Francois One', sans-serif;
     color: #D0D0D0;
@@ -13,8 +54,58 @@
     transform: skew(-15deg);
 }
 
-.film-noir-menu {
-    font-family: 'Francois One', sans-serif;
-    color: #FFFFFF;
-    filter: drop-shadow(1px 2px 1px #0D090C);
+.message {
+    position: relative;
+    max-width: 70%;
+    margin-bottom: 10px;
+}
+
+.bot-message {
+    justify-content: start;
+}
+
+.user-message {
+    justify-content: end;
+}
+
+.message-container {
+    padding-top: 12px;
+    height: 600px;
+    overflow-y: scroll;
+}
+
+.message-text {
+    border-radius: 14px 14px 14px 14px;
+    padding: 9px 14px;
+    font-size: 1rem;
+    font-family: 'Special Elite', monospace;
+    line-height: 1.5;
+    letter-spacing: .05rem;
+    margin-bottom: 5px;
+}
+
+.bot-message-text {
+    background: #E9E9EB;
+    color: black;
+    border: 1px #E9E9EB;
+}
+
+.user-message-text {
+    background: #363636;
+    color: white;
+    border: 1px #363636;
+}
+
+.text-entry-container {
+    background-color: #000000;
+    border-radius: 0 0 0.3rem 0.3rem;
+}
+
+.text-entry {
+    font-family: 'Special Elite', monospace;
+}
+
+.text-entry:focus {
+    box-shadow: 0 0 0 .1rem #eeeeee !important;
+    border-color: #AAA9AC;
 }
