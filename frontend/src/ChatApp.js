@@ -16,11 +16,13 @@ export default function ChatApp() {
             <Container>
                 <ChatNavBar/>
                 <div className="body-bg">
-                    <Routes>
-                        <Route path="/" element={<Chat/>}/>
-                        <Route path="/saved" element={<SavedChats/>}/>
-                        <Route path="/about" element={<About/>}/>
-                    </Routes>
+                    <Row>
+                        <Routes>
+                            <Route path="/" element={<Chat/>}/>
+                            <Route path="/saved" element={<SavedChats/>}/>
+                            <Route path="/about" element={<About/>}/>
+                        </Routes>
+                    </Row>
                 </div>
             </Container>
         </BrowserRouter>
