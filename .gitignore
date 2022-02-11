@@ -1,0 +1,13 @@
+config.py
+.idea/
+venv/
+*.log
+*.pot
+*.pyc
+__pycache__/
+media
+/app/static/dist
+.coverage
+coverage/
+htmlcov/
+node_modules/
