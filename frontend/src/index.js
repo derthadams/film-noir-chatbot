@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import Button from 'react-bootstrap/Button';
 import 'bootstrap'
+
 import './custom.scss'
 import "./index.css"
 
+import ChatApp from "./ChatApp"
+
 const TestPage = () => {
     return (<div>
-        <h1>Here's React for ya</h1>
-        <Button variant={"secondary"}>Click me</Button>
+        <ChatApp/>
     </div>)
 }
 
