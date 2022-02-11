@@ -8,45 +8,6 @@ import Row from 'react-bootstrap/Row'
 import ChatWindow from "./ChatWindow"
 import TextEntryBox from "./TextEntryBox";
 
-const sample = [
-    {
-        user: false,
-        text: "Talk to me."
-    },
-    {
-        user: true,
-        text: "I need your help. My sister has been missing for three weeks and I'm very worried about her."
-    },
-    {
-        user: false,
-        text: "Oh yeah? What's her name?"
-    },
-    {
-        user: true,
-        text: "Gladys. Gladys Nightingale."
-    },
-    {
-        user: false,
-        text: "Where did you see her last?"
-    },
-    {
-        user: true,
-        text: "At her favorite nightclub, the Mocambo. A handsome stranger asked her to dance."
-    },
-    {
-        user: false,
-        text: "And then?"
-    },
-    {
-        user: true,
-        text: "Well, I must have lost her in the crowd. I went looking for her everywhere and couldn't find her."
-    },
-    {
-        user: false,
-        text: "Did it ever occur to you that maybe she doesn't want to be found?"
-    },
-]
-
 export default function Chat() {
     const [history, setHistory] = useState([]);
 
@@ -61,12 +22,16 @@ export default function Chat() {
                     user: user,
                     text: message
                 }
-            ]
+                ]
         );
     }
 
     const clearHistory = () => {
         setHistory([]);
+    }
+
+    const saveChat = () => {
+        console.log(history)
     }
 
     const sendMessage = (message) => {
@@ -85,7 +50,11 @@ export default function Chat() {
                                     onClick={clearHistory}>
                                 <i className="bi bi-x-circle chat-button-icon"> </i>
                             </Button>
-                            <Button variant="outline-light" size="sm">
+                            <Button
+                                    variant="outline-light"
+                                    size="sm"
+                                    onClick={saveChat}
+                            >
                                 <i className="bi bi-save chat-button-icon"> </i>
                             </Button>
                         </ButtonGroup>
