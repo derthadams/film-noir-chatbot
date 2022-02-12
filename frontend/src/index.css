@@ -96,6 +96,11 @@
     border: 1px #363636;
 }
 
+.modal-content {
+    background: #262626;
+    color: white;
+}
+
 .text-entry-container {
     background-color: #000000;
     border-radius: 0 0 0.3rem 0.3rem;
@@ -108,4 +113,8 @@
 .text-entry:focus {
     box-shadow: 0 0 0 .1rem #eeeeee !important;
     border-color: #AAA9AC;
+}
+
+.typewriter {
+    font-family: 'Special Elite', monospace;
 }

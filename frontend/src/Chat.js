@@ -92,9 +92,9 @@ export default function Chat() {
                 <ChatWindow messages={history}/>
             </div>
             <TextEntryBox sendMessage={sendMessage}/>
-            <Modal show={showModal} onHide={handleModalClose}>
+            <Modal show={showModal} onHide={handleModalClose} className={"typewriter"}>
                 <Modal.Header closeButton>
-                    Save Chat
+                    <h3>Save Chat</h3>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group>
@@ -111,7 +111,7 @@ export default function Chat() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
-                            variant={"outline-dark"}
+                            variant={"outline-light"}
                             onClick={handleModalClose}>
                         Cancel
                     </Button>
