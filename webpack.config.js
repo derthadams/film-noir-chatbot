@@ -49,6 +49,6 @@ module.exports = {
     mode: "development",
     output: {
         filename: '[name].bundle.js',  // output bundle file name
-        path: path.resolve(__dirname, './app/static/dist'),  // path to our Flask static directory
+        path: path.resolve(__dirname, './backend/static/dist'),  // path to our Flask static directory
     },
 };

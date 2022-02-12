@@ -6,9 +6,9 @@ venv/
 *.pyc
 __pycache__/
 media
-/app/static/dist
+/static/dist
 .coverage
 coverage/
 htmlcov/
 node_modules/
-app/chatbot/output-medium
+output-medium
