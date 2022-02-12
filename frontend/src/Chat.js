@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button"
 import ButtonGroup from "react-bootstrap/ButtonGroup"
 import Col from "react-bootstrap/Col"
+import Form from "react-bootstrap/Form"
+import Modal from "react-bootstrap/Modal"
 import Row from 'react-bootstrap/Row'
 
 import axios from "axios"
@@ -12,6 +14,14 @@ import TextEntryBox from "./TextEntryBox";
 
 export default function Chat() {
     const [history, setHistory] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [chatSubject, setChatSubject] = useState("");
+
+    const handleModalClose = () => setShowModal(false);
+    const handleModalShow = () => setShowModal(true);
+    const handleChange = (event) => {
+        setChatSubject(event.target.value);
+    }
 
     const getBotResponse = (message) => {
         return axios.post("/api", {text: message})
@@ -40,7 +50,16 @@ export default function Chat() {
     }
 
     const saveChat = () => {
-        console.log(history)
+        const today  = new Date()
+        //mydate.toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})
+        const chat = {
+            subject: chatSubject,
+            date: today,
+            history: history
+        }
+        console.log(chat);
+        setChatSubject("");
+        handleModalClose();
     }
 
     const sendMessage = async (message) => {
@@ -63,7 +82,7 @@ export default function Chat() {
                             <Button
                                     variant="outline-light"
                                     size="sm"
-                                    onClick={saveChat}
+                                    onClick={handleModalShow}
                             >
                                 <i className="bi bi-save chat-button-icon"> </i>
                             </Button>
@@ -73,7 +92,36 @@ export default function Chat() {
                 <ChatWindow messages={history}/>
             </div>
             <TextEntryBox sendMessage={sendMessage}/>
+            <Modal show={showModal} onHide={handleModalClose}>
+                <Modal.Header closeButton>
+                    Save Chat
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group>
+                        <Form.Label htmlFor="chat-subject">
+                            Subject
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            className="text-entry"
+                            id="chat-subject"
+                            value={chatSubject}
+                            onChange={handleChange}/>
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                            variant={"outline-dark"}
+                            onClick={handleModalClose}>
+                        Cancel
+                    </Button>
+                    <Button
+                            variant={"outline-danger"}
+                            onClick={saveChat}>
+                        Save
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Col>
-
     )
 }
