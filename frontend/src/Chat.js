@@ -45,7 +45,7 @@ export default function Chat() {
 
     return (
         <Col xs={9} md={6} className="mx-auto rounded-3 mb-5 chat-container">
-            <div className="message-container" tabIndex="0">
+            <div className="message-container" >
                 <Row className="mb-2 pe-3 clear-save-buttons">
                     <Col xs={2} className="ms-auto">
                         <ButtonGroup>
