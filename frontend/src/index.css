@@ -54,6 +54,12 @@
     transform: skew(-15deg);
 }
 
+.help-popover {
+    font-family: 'Special Elite', monospace;
+    background: #262626;
+    color: white;
+}
+
 .message {
     position: relative;
     max-width: 70%;

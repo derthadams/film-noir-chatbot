@@ -5,6 +5,8 @@ import ButtonGroup from "react-bootstrap/ButtonGroup"
 import Col from "react-bootstrap/Col"
 import Form from "react-bootstrap/Form"
 import Modal from "react-bootstrap/Modal"
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover"
 import Row from 'react-bootstrap/Row'
 
 import axios from "axios"
@@ -68,24 +70,62 @@ export default function Chat() {
         addMessageToHistory( user, text );
     }
 
+    const clearPopover = (
+        <Popover id="clear-popover">
+            <Popover.Header className="typewriter">
+                Clear Chat
+            </Popover.Header>
+            <Popover.Body className="help-popover">
+                This will end the current conversation.
+            </Popover.Body>
+        </Popover>
+    )
+
+    const savePopover = (
+        <Popover id="save-popover">
+            <Popover.Header className="typewriter">
+                Save Chat
+            </Popover.Header>
+            <Popover.Body className="help-popover">
+                Saved chats can be viewed on the Saved Chats page.
+            </Popover.Body>
+        </Popover>
+    )
+
     return (
         <Col xs={9} md={6} className="mx-auto rounded-3 mb-5 chat-container">
             <div className="message-container" >
                 <Row className="mb-2 pe-3 clear-save-buttons">
                     <Col xs={2} className="ms-auto">
                         <ButtonGroup>
-                            <Button variant="outline-light"
+                            <OverlayTrigger
+                                // delay={{show: 800}}
+                                trigger="hover"
+                                placement="top"
+                                overlay={clearPopover}
+                                rootClose
+                            >
+                                <Button variant="outline-light"
                                     size="sm"
                                     onClick={clearHistory}>
-                                <i className="bi bi-x-circle chat-button-icon"> </i>
-                            </Button>
-                            <Button
+                                    <i className="bi bi-x-circle chat-button-icon"> </i>
+                                </Button>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                                // delay={{show: 1500}}
+                                trigger="hover"
+                                placement="top"
+                                overlay={savePopover}
+                                rootClose
+                            >
+                                <Button
                                     variant="outline-light"
                                     size="sm"
                                     onClick={handleModalShow}
-                            >
-                                <i className="bi bi-save chat-button-icon"> </i>
-                            </Button>
+                                >
+                                    <i className="bi bi-save chat-button-icon"> </i>
+                                </Button>
+                            </OverlayTrigger>
                         </ButtonGroup>
                     </Col>
                 </Row>
@@ -93,7 +133,7 @@ export default function Chat() {
             </div>
             <TextEntryBox sendMessage={sendMessage}/>
             <Modal show={showModal} onHide={handleModalClose} className={"typewriter"}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton closeVariant="white">
                     <h3>Save Chat</h3>
                 </Modal.Header>
                 <Modal.Body>
