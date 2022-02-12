@@ -12,3 +12,4 @@ coverage/
 htmlcov/
 node_modules/
 output-medium
+.DS_Store
