@@ -30,7 +30,13 @@ export default function Chat() {
     }
 
     const clearHistory = () => {
-        setHistory([]);
+        axios.post("api", {clear: true})
+                .then((response) => {
+                    if(response.data.length === 0) {
+                        setHistory([]);
+                        console.log("History cleared");
+                    }
+                })
     }
 
     const saveChat = () => {
