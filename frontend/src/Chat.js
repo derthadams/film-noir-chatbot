@@ -5,14 +5,17 @@ import ButtonGroup from "react-bootstrap/ButtonGroup"
 import Col from "react-bootstrap/Col"
 import Row from 'react-bootstrap/Row'
 
+import axios from "axios"
+
 import ChatWindow from "./ChatWindow"
 import TextEntryBox from "./TextEntryBox";
 
 export default function Chat() {
     const [history, setHistory] = useState([]);
 
-    const callAPI = (message) => {
-        console.log(`Called API with message: ${ message }`);
+    const getBotResponse = (message) => {
+        return axios.post("/api", {text: message})
+                .then((response) => response.data)
     }
 
     const addMessageToHistory = (user, message) => {
@@ -34,9 +37,10 @@ export default function Chat() {
         console.log(history)
     }
 
-    const sendMessage = (message) => {
-        callAPI(message);
+    const sendMessage = async (message) => {
         addMessageToHistory(true, message);
+        const { user, text } = await getBotResponse(message);
+        addMessageToHistory( user, text );
     }
 
     return (
