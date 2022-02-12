@@ -20,11 +20,11 @@ def api():
             bot_response = bot.get_response(message)
             length = bot.get_chat_history_length()
             return {"text": bot_response,
-                    "length": length}
+                    "user": False}
 
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def index(path):
-    return render_template('chat/index.html') # noqa
+    return render_template('index.html') # noqa
 
