@@ -11,10 +11,10 @@ class Chatbot: # noqa
         self.chat_history_ids = torch.tensor([], dtype=torch.long)
 
     def _trim_chat_history(self):
-        if len(self.queue) >= 10:
+        if len(self.queue) > 10:
             discard_length = self.queue.popleft()
             discard_length += self.queue.popleft()
-            self.chat_history_ids = self.chat_history_ids[:, discard_length]
+            self.chat_history_ids = self.chat_history_ids[:, discard_length:]
 
     def clear_chat_history(self):
         self.chat_history_ids = torch.tensor([], dtype=torch.long)
@@ -53,9 +53,12 @@ class Chatbot: # noqa
         bot_input_length = self.chat_history_ids.size()[1] - prior_chat_history_length
         self.queue.append(bot_input_length)
 
+        # return the bot response
+        response = self.tokenizer.decode(self.chat_history_ids[:, bot_input_ids.shape[-1]:][0],
+                                         skip_special_tokens=True)
+
         # trim the head of the chat history if it's more than 10 messages long
         self._trim_chat_history()
 
-        # return the bot response
-        return self.tokenizer.decode(self.chat_history_ids[:, bot_input_ids.shape[-1]:][0],
-                                     skip_special_tokens=True)
+        return response
+
