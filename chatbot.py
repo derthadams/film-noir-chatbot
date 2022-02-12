@@ -2,9 +2,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer # noqa
 import torch # noqa
 from collections import deque
 
-# tokenizer = AutoTokenizer.from_pretrained('output-medium')
-# model = AutoModelForCausalLM.from_pretrained('output-medium')
-
 
 class Chatbot: # noqa
     def __init__(self):
@@ -18,6 +15,13 @@ class Chatbot: # noqa
             discard_length = self.queue.popleft()
             discard_length += self.queue.popleft()
             self.chat_history_ids = self.chat_history_ids[:, discard_length]
+
+    def clear_chat_history(self):
+        self.chat_history_ids = torch.tensor([], dtype=torch.long)
+        self.queue = deque()
+
+    def get_chat_history_length(self):
+        return len(self.queue)
 
     def get_response(self, message):
         # encode user message using tokenizer
@@ -53,5 +57,5 @@ class Chatbot: # noqa
         self._trim_chat_history()
 
         # return the bot response
-        return "".format(self.tokenizer.decode(self.chat_history_ids[:, bot_input_ids.shape[-1]:][0],
-                                          skip_special_tokens=True))
+        return self.tokenizer.decode(self.chat_history_ids[:, bot_input_ids.shape[-1]:][0],
+                                     skip_special_tokens=True)
