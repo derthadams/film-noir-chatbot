@@ -100,7 +100,7 @@ export default function Chat() {
                         <ButtonGroup>
                             <OverlayTrigger
                                 // delay={{show: 800}}
-                                trigger="hover"
+                                trigger={["hover", "focus"]}
                                 placement="top"
                                 overlay={clearPopover}
                                 rootClose
@@ -113,7 +113,7 @@ export default function Chat() {
                             </OverlayTrigger>
                             <OverlayTrigger
                                 // delay={{show: 1500}}
-                                trigger="hover"
+                                trigger={["hover", "focus"]}
                                 placement="top"
                                 overlay={savePopover}
                                 rootClose
