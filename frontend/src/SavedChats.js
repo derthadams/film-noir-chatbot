@@ -5,7 +5,7 @@ import SavedChat from "./SavedChat"
 
 const chats = [{
         date: "2022-02-12",
-        subject: "General",
+        subject: "The General",
         history: [
             {user: true, text: "Hello"},
             {user: false, text: "Hello. How's the General this morning?"},

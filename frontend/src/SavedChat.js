@@ -49,10 +49,10 @@ export default function SavedChat({subject, date, history}) {
                         {convertDate(date)}
                     </Card.Text>
                     <Card.Text>
-                        {history[0] &&
-                        (history[0].user ? 'You: "' : 'Bot: "') + history[0].text + '" '}
-                        {history[1] &&
-                        (history[1].user ? 'You: "' : 'Bot: "') + history[1].text + '" '}
+                        {[...Array(2)].map((x, i) =>
+                            history[i] &&
+                            (history[i].user ? 'You: "' : 'Bot: "') + history[i].text + '" '
+                        )}
                     </Card.Text>
                 </Card.Body>
             </Card>
