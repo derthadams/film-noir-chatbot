@@ -108,6 +108,10 @@
     border-color: white;
 }
 
+.saved-chats-background {
+    background-color: #E9E9EB;
+}
+
 .text-entry-container {
     background-color: #000000;
     border-radius: 0 0 0.3rem 0.3rem;
