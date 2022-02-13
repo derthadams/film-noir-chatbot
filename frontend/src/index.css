@@ -105,6 +105,7 @@
 .modal-content {
     background: #262626;
     color: white;
+    border-color: white;
 }
 
 .text-entry-container {
