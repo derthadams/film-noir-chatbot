@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Col from "react-bootstrap/Col";
 import SavedChat from "./SavedChat"
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const chats = [{
         date: "2022-02-12",
@@ -46,6 +48,30 @@ const chats = [{
 
 
 export default function SavedChats() {
+    const [showLoadModal, setShowLoadModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const handleLoadModalClose = () => {
+        setShowLoadModal(false);
+    }
+    const handleLoadModalOpen = () => {
+        setShowLoadModal(true);
+    }
+
+    const handleDeleteModalClose = () => {
+        setShowDeleteModal(false);
+    }
+    const handleDeleteModalOpen = () => {
+        setShowDeleteModal(true);
+    }
+
+    const loadChat = () => {
+        console.log("Chat loaded!");
+    }
+
+    const deleteChat = () => {
+        console.log("Chat deleted!");
+    }
 
     return (
         <Col className="message-container saved-chats-background mx-auto rounded-3 mb-5" xs={9} md={6}>
@@ -55,9 +81,56 @@ export default function SavedChats() {
                 <SavedChat subject={chat.subject}
                            date={chat.date}
                            history={chat.history}
-                           key={chat.subject + chat.date}/>
+                           key={chat.subject + chat.date}
+                           handleLoadModalOpen={handleLoadModalOpen}
+                           handleDeleteModalOpen={handleDeleteModalOpen}/>
             )}
             </div>
+            <Modal show={showLoadModal} onHide={handleLoadModalClose} className={"typewriter"}>
+                <Modal.Header closeButton closeVariant="white">
+                    <h3>Load Chat</h3>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>
+                        This will load the saved chat into the main chat window and delete any chat
+                        currently in progress. Do you want to proceed?
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                            variant={"outline-light"}
+                            onClick={handleLoadModalClose}>
+                        Cancel
+                    </Button>
+                    <Button
+                            variant={"outline-danger"}
+                            onClick={loadChat}>
+                        Load
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showDeleteModal} onHide={handleDeleteModalClose} className={"typewriter"}>
+                <Modal.Header closeButton closeVariant="white">
+                    <h3>Delete Saved Chat</h3>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>
+                        Do you want to delete the saved chat?
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                            variant={"outline-light"}
+                            onClick={handleLoadModalClose}>
+                        Cancel
+                    </Button>
+                    <Button
+                            variant={"outline-danger"}
+                            onClick={deleteChat}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Col>
     )
 }

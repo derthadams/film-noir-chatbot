@@ -16,7 +16,15 @@ const convertDate = (date) => {
     });
 }
 
-export default function SavedChat({subject, date, history}) {
+export default function SavedChat(
+        {
+            subject,
+            date,
+            history,
+            handleLoadModalOpen,
+            handleDeleteModalOpen
+        }
+        ) {
     return (
             <Card className={"typewriter mb-2"}>
                 <Card.Body>
@@ -33,12 +41,17 @@ export default function SavedChat({subject, date, history}) {
                                 <ButtonGroup>
                                     <Button
                                             variant="outline-dark"
-                                            size="sm">
+                                            size="sm"
+                                            onClick={handleLoadModalOpen}
+                                    >
                                         Load
                                     </Button>
                                     <Button
                                             variant="outline-danger"
-                                            size="sm">
+                                            size="sm"
+                                            onClick={handleDeleteModalOpen}
+                                    >
+
                                         Delete
                                     </Button>
                                 </ButtonGroup>
