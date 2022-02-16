@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import axios from "axios";
 
 import Col from "react-bootstrap/Col";
 import SavedChat from "./SavedChat"
@@ -50,6 +52,7 @@ const chats = [{
 export default function SavedChats() {
     const [showLoadModal, setShowLoadModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [chats, setChats] = useState([]);
 
     const handleLoadModalClose = () => {
         setShowLoadModal(false);
@@ -73,15 +76,23 @@ export default function SavedChats() {
         console.log("Chat deleted!");
     }
 
+
+
+    useEffect(()=> {
+        axios.get('http://localhost:8123')
+                .then((response) => setChats(response.data))
+                .catch((error) => console.log(error.response.data))
+    }, [])
+
     return (
         <Col className="message-container saved-chats-background mx-auto rounded-3 mb-5" xs={9} md={6}>
             <div>
             {chats.map(
                     (chat) =>
                 <SavedChat subject={chat.subject}
-                           date={chat.date}
-                           history={chat.history}
-                           key={chat.subject + chat.date}
+                           date={chat.saved_date}
+                           history={JSON.parse(chat.history)}
+                           key={chat.subject + chat.saved_date}
                            handleLoadModalOpen={handleLoadModalOpen}
                            handleDeleteModalOpen={handleDeleteModalOpen}/>
             )}
