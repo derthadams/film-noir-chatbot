@@ -56,10 +56,14 @@ export default function Chat() {
         //mydate.toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})
         const chat = {
             subject: chatSubject,
-            date: today,
+            saved_date: today,
             history: JSON.stringify(history)
         }
-        console.log(JSON.stringify(chat));
+        // const data = JSON.stringify(chat)
+        console.log(chat);
+        axios.post('http://localhost:8123/', chat)
+                .then((response) => console.log(response))
+                .catch((error) => console.log(error.response.data))
         setChatSubject("");
         handleModalClose();
     }
