@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 
 import Container from "react-bootstrap/Container"
@@ -12,15 +12,18 @@ import Chat from "./Chat"
 import SavedChats from "./SavedChats";
 
 export default function ChatApp() {
+    const [history, setHistory] = useState([]);
+
     return (
-        <BrowserRouter basename="/">
-            <Container>
-                <ChatNavBar/>
-                <div className="body-bg">
-                    <Row>
-                        <Routes>
-                            <Route path="/" element={<Chat/>}/>
-                            <Route path="/saved" element={<SavedChats/>}/>
+            <BrowserRouter basename="/">
+                <Container>
+                    <ChatNavBar/>
+                    <div className="body-bg">
+                        <Row>
+                            <Routes>
+                                <Route path="/"
+                                       element={<Chat history={history} setHistory={setHistory}/>}/>
+                                <Route path="/saved" element={<SavedChats/>}/>
                             <Route path="/about" element={<About/>}/>
                         </Routes>
                     </Row>

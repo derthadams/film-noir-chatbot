@@ -14,8 +14,7 @@ import axios from "axios"
 import ChatWindow from "./ChatWindow"
 import TextEntryBox from "./TextEntryBox";
 
-export default function Chat() {
-    const [history, setHistory] = useState([]);
+export default function Chat({history, setHistory}) {
     const [showModal, setShowModal] = useState(false);
     const [chatSubject, setChatSubject] = useState("");
 
@@ -53,13 +52,11 @@ export default function Chat() {
 
     const saveChat = () => {
         const today  = new Date().toISOString().slice(0, 10)
-        //mydate.toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})
         const chat = {
             subject: chatSubject,
             saved_date: today,
             history: JSON.stringify(history)
         }
-        // const data = JSON.stringify(chat)
         console.log(chat);
         axios.post('http://localhost:8123/', chat)
                 .then((response) => console.log(response))
