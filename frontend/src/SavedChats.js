@@ -7,48 +7,6 @@ import SavedChat from "./SavedChat"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-const chats = [{
-        date: "2022-02-12",
-        subject: "The General",
-        history: [
-            {user: true, text: "Hello"},
-            {user: false, text: "Hello. How's the General this morning?"},
-            {user: true, text: "I don't know, I haven't seen him"},
-            {user: false, text: "Well, this is awkward."},
-            {user: true, text: "Yes it is"},
-            {user: false, text: "How did you get into this slimy business, then?"}
-            ]
-    },
-    {
-        date: "2022-02-11",
-        subject: "Missing brother",
-        history: [
-            {user: true, text: "Your name?"},
-            {user: false, text: "Reilly -- Doghouse Reilly."},
-            {user: true, text: "What do you do for a living?"},
-            {user: false, text: "I'm a private detective."},
-            {user: true, text: "Can you help me? My brother has been missing for three weeks."},
-            {user: false, text: "For how long?"},
-            {user: true, text: "Three weeks"},
-            {user: false, text: "And you didn't worry."}
-    ]
-},
-    {
-        date: "2022-02-10",
-        subject: "Pistol-packing",
-        history: [
-            {user: true, text: "Hello"},
-            {user: false, text: "Hello. How's the pistol-packing business up here?"},
-            {user: true, text: "Going pretty well, you?"},
-            {user: false, text: "Better. We don't have so many amateurs around."},
-            {user: true, text: "If you want a job done right, give it to the professionals."},
-            {user: false, text: "What do you mean, done right?"}
-        ],
-}
-]
-
-
-
 export default function SavedChats() {
     const [showLoadModal, setShowLoadModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -79,8 +37,8 @@ export default function SavedChats() {
         axios.delete('http://localhost:8123', {params: {id: activeID}})
                 .then((response) => console.log(response))
                 .catch((error) => console.log(error))
-        console.log(`Chat ${activeID} deleted!`);
         handleDeleteModalClose();
+        updateSavedChatList();
     }
 
     const updateSavedChatList = () => {
@@ -89,7 +47,7 @@ export default function SavedChats() {
                 .catch((error) => console.log(error.response.data))
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         updateSavedChatList();
     }, [])
 
