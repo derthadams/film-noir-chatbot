@@ -52,14 +52,14 @@ export default function Chat() {
     }
 
     const saveChat = () => {
-        const today  = new Date()
+        const today  = new Date().toISOString().slice(0, 10)
         //mydate.toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})
         const chat = {
             subject: chatSubject,
             date: today,
-            history: history
+            history: JSON.stringify(history)
         }
-        console.log(chat);
+        console.log(JSON.stringify(chat));
         setChatSubject("");
         handleModalClose();
     }
