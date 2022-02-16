@@ -53,6 +53,7 @@ export default function SavedChats() {
     const [showLoadModal, setShowLoadModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [chats, setChats] = useState([]);
+    const [activeID, setActiveID] = useState(null);
 
     const handleLoadModalClose = () => {
         setShowLoadModal(false);
@@ -63,8 +64,10 @@ export default function SavedChats() {
 
     const handleDeleteModalClose = () => {
         setShowDeleteModal(false);
+        setActiveID(null);
     }
-    const handleDeleteModalOpen = () => {
+    const handleDeleteModalOpen = (event) => {
+        setActiveID(event.target.id);
         setShowDeleteModal(true);
     }
 
@@ -73,15 +76,21 @@ export default function SavedChats() {
     }
 
     const deleteChat = () => {
-        console.log("Chat deleted!");
+        axios.delete('http://localhost:8123', {params: {id: activeID}})
+                .then((response) => console.log(response))
+                .catch((error) => console.log(error))
+        console.log(`Chat ${activeID} deleted!`);
+        handleDeleteModalClose();
     }
 
-
-
-    useEffect(()=> {
+    const updateSavedChatList = () => {
         axios.get('http://localhost:8123')
                 .then((response) => setChats(response.data))
                 .catch((error) => console.log(error.response.data))
+    }
+
+    useEffect(()=> {
+        updateSavedChatList();
     }, [])
 
     return (
@@ -89,10 +98,11 @@ export default function SavedChats() {
             <div>
             {chats.map(
                     (chat) =>
-                <SavedChat subject={chat.subject}
+                <SavedChat id={chat.id}
+                           subject={chat.subject}
                            date={chat.saved_date}
                            history={JSON.parse(chat.history)}
-                           key={chat.subject + chat.saved_date}
+                           key={chat.id}
                            handleLoadModalOpen={handleLoadModalOpen}
                            handleDeleteModalOpen={handleDeleteModalOpen}/>
             )}
@@ -132,7 +142,7 @@ export default function SavedChats() {
                 <Modal.Footer>
                     <Button
                             variant={"outline-light"}
-                            onClick={handleLoadModalClose}>
+                            onClick={handleDeleteModalClose}>
                         Cancel
                     </Button>
                     <Button

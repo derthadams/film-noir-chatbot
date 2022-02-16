@@ -18,6 +18,7 @@ const convertDate = (date) => {
 
 export default function SavedChat(
         {
+            id,
             subject,
             date,
             history,
@@ -47,11 +48,11 @@ export default function SavedChat(
                                         Load
                                     </Button>
                                     <Button
+                                            id={id}
                                             variant="outline-danger"
                                             size="sm"
                                             onClick={handleDeleteModalOpen}
                                     >
-
                                         Delete
                                     </Button>
                                 </ButtonGroup>
