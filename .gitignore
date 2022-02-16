@@ -13,3 +13,5 @@ htmlcov/
 node_modules/
 output-medium
 .DS_Store
+film_noir.db
+sqlite_test.py
