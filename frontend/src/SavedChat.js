@@ -41,6 +41,7 @@ export default function SavedChat(
                             <Col xs={4}>
                                 <ButtonGroup>
                                     <Button
+                                            id={id}
                                             variant="outline-dark"
                                             size="sm"
                                             onClick={handleLoadModalOpen}

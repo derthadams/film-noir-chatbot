@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, request, render_template
 from chatbot import Chatbot
 
@@ -10,7 +12,8 @@ bot = Chatbot()
 def load():
     if request.method == 'POST':
         json_data = request.json
-        bot.load_chat(json_data)
+        history = json.loads(json_data['chat_history'])
+        bot.load_chat(history)
         return {"status": "chat loaded"}
 
 

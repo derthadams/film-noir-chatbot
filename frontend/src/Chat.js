@@ -41,7 +41,7 @@ export default function Chat({history, setHistory}) {
     }
 
     const clearHistory = () => {
-        axios.post("api", {clear: true})
+        axios.post("/api", {clear: true})
                 .then((response) => {
                     if(response.data.length === 0) {
                         setHistory([]);

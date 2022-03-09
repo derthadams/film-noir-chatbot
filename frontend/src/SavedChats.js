@@ -7,7 +7,7 @@ import SavedChat from "./SavedChat"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-export default function SavedChats() {
+export default function SavedChats({setHistory}) {
     const [showLoadModal, setShowLoadModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [chats, setChats] = useState([]);
@@ -16,7 +16,8 @@ export default function SavedChats() {
     const handleLoadModalClose = () => {
         setShowLoadModal(false);
     }
-    const handleLoadModalOpen = () => {
+    const handleLoadModalOpen = (event) => {
+        setActiveID(event.target.id);
         setShowLoadModal(true);
     }
 
@@ -30,6 +31,14 @@ export default function SavedChats() {
     }
 
     const loadChat = () => {
+        const chat = chats.find((element) => element.id.toString() === activeID);
+        axios.post('/api/load', {chat_history: chat.history})
+                .then((response) => console.log(response))
+                .catch((error) => console.log(error))
+                .finally(() => {
+                    setHistory(JSON.parse(chat.history));
+                    handleLoadModalClose();
+                })
         console.log("Chat loaded!");
     }
 
