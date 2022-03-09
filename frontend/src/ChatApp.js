@@ -22,8 +22,10 @@ export default function ChatApp() {
                         <Row>
                             <Routes>
                                 <Route path="/"
-                                       element={<Chat history={history} setHistory={setHistory}/>}/>
-                                <Route path="/saved" element={<SavedChats/>}/>
+                                       element={<Chat history={history}
+                                                      setHistory={setHistory}/>}/>
+                                <Route path="/saved"
+                                       element={<SavedChats setHistory={setHistory}/>}/>
                                 <Route path="/about" element={<About/>}/>
                             </Routes>
                         </Row>
