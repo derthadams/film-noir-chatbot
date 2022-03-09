@@ -10,9 +10,7 @@ bot = Chatbot()
 def load():
     if request.method == 'POST':
         json_data = request.json
-        # bot.load_chat(json_data)
-        # print(type(json_data))
-        # print(json_data)
+        bot.load_chat(json_data)
         return {"status": "chat loaded"}
 
 

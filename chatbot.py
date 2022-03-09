@@ -24,6 +24,15 @@ class Chatbot: # noqa
         self.chat_history_ids = torch.tensor([], dtype=torch.long)
         self.queue = deque()
 
+    def load_chat(self, chat):
+        self.clear_chat_history()
+        lines = list(map(lambda x: x["text"], chat))[-10:]
+        for line in lines:
+            line_ids = self._encode_message(line)
+            self.chat_history_ids = torch.cat([self.chat_history_ids, line_ids], dim=-1)
+            line_length = line_ids.size()[1]
+            self.queue.append(line_length)
+
     def get_chat_history_length(self):
         return len(self.queue)
 
