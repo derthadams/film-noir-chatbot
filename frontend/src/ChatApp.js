@@ -24,11 +24,11 @@ export default function ChatApp() {
                                 <Route path="/"
                                        element={<Chat history={history} setHistory={setHistory}/>}/>
                                 <Route path="/saved" element={<SavedChats/>}/>
-                            <Route path="/about" element={<About/>}/>
-                        </Routes>
-                    </Row>
-                </div>
-            </Container>
-        </BrowserRouter>
+                                <Route path="/about" element={<About/>}/>
+                            </Routes>
+                        </Row>
+                    </div>
+                </Container>
+            </BrowserRouter>
     )
 }
