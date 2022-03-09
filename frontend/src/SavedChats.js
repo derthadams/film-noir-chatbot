@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
+import {useNavigate,} from "react-router-dom";
 
 import axios from "axios";
 
@@ -12,6 +13,7 @@ export default function SavedChats({setHistory}) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [chats, setChats] = useState([]);
     const [activeID, setActiveID] = useState(null);
+    const navigate = useNavigate();
 
     const handleLoadModalClose = () => {
         setShowLoadModal(false);
@@ -38,6 +40,7 @@ export default function SavedChats({setHistory}) {
                 .finally(() => {
                     setHistory(JSON.parse(chat.history));
                     handleLoadModalClose();
+                    navigate("/", {replace: true});
                 })
         console.log("Chat loaded!");
     }
