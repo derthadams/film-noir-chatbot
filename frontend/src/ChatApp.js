@@ -13,7 +13,15 @@ import SavedChats from "./SavedChats";
 
 export default function ChatApp() {
     const [history, setHistory] = useState([]);
-    const [prompts, setPrompts] = useState([])
+    const [prompts, setPrompts] = useState([]);
+    const [timeoutPointers, setTimeoutPointers] = useState([]);
+
+    const clearTimeouts = () => {
+        for (const pointer of timeoutPointers) {
+            clearTimeout(pointer);
+            setTimeoutPointers([]);
+        }
+    }
 
     return (
             <BrowserRouter basename="/">
@@ -26,9 +34,16 @@ export default function ChatApp() {
                                        element={<Chat prompts={prompts}
                                                       setPrompts={setPrompts}
                                                       history={history}
-                                                      setHistory={setHistory}/>}/>
+                                                      setHistory={setHistory}
+                                                      setTimeoutPointers={setTimeoutPointers}
+                                                      clearTimeouts={clearTimeouts}
+                                       />}/>
                                 <Route path="/saved"
-                                       element={<SavedChats setHistory={setHistory}/>}/>
+                                       element={<SavedChats setPrompts={setPrompts}
+                                                            setHistory={setHistory}
+                                                            setTimeoutPointers={setTimeoutPointers}
+                                                            clearTimeouts={clearTimeouts}
+                                       />}/>
                                 <Route path="/about" element={<About/>}/>
                             </Routes>
                         </Row>

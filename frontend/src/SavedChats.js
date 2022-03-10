@@ -8,7 +8,7 @@ import SavedChat from "./SavedChat"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-export default function SavedChats({setHistory}) {
+export default function SavedChats({setPrompts, setHistory, clearTimeouts}) {
     const [showLoadModal, setShowLoadModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [chats, setChats] = useState([]);
@@ -39,6 +39,8 @@ export default function SavedChats({setHistory}) {
                 .catch((error) => console.log(error))
                 .finally(() => {
                     handleLoadModalClose();
+                    setPrompts([]);
+                    clearTimeouts();
                     setHistory(JSON.parse(chat.history));
                     navigate("/", {replace: false});
                     const savedLink = document.getElementById("saved-link")

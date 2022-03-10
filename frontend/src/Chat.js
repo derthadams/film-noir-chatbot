@@ -16,10 +16,12 @@ import TextEntryBox from "./TextEntryBox";
 
 import promptScript from "./prompts";
 
-export default function Chat({prompts, setPrompts, history, setHistory}) {
+export default function Chat({
+                                 prompts, setPrompts, history, setHistory,
+                                 setTimeoutPointers, clearTimeouts
+                             }) {
     const [showModal, setShowModal] = useState(false);
     const [chatSubject, setChatSubject] = useState("");
-    const [timeoutPointers, setTimeoutPointers] = useState([]);
 
     const handleModalClose = () => setShowModal(false);
     const handleModalShow = () => setShowModal(true);
@@ -48,7 +50,7 @@ export default function Chat({prompts, setPrompts, history, setHistory}) {
                 .then((response) => {
                     if(response.data.length === 0) {
                         setPrompts([]);
-                        clearTimeoutPointers();
+                        clearTimeouts();
                         setHistory([]);
                         console.log("History cleared");
                     }
@@ -116,15 +118,9 @@ export default function Chat({prompts, setPrompts, history, setHistory}) {
         )
     }
 
-    const clearTimeoutPointers = () => {
-        for (const pointer of timeoutPointers) {
-            clearTimeout(pointer);
-        }
-    }
-
     const handleUserTyping = () => {
         if (history.length === 0) {
-            clearTimeoutPointers();
+            clearTimeouts();
         }
     }
 
@@ -141,7 +137,7 @@ export default function Chat({prompts, setPrompts, history, setHistory}) {
     }
 
     useEffect(() => {
-        if (history.length === 0) {
+        if (history.length === 0 && prompts.length === 0) {
             displayPrompts();
         }
     }, [])
