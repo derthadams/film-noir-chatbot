@@ -20,7 +20,7 @@ export default function ChatApp() {
                             </NavLink>
                         </LinkContainer>
                         <LinkContainer to="/saved">
-                            <NavLink className="film-noir-menu fs-2">
+                            <NavLink className="film-noir-menu fs-2" id={"saved-link"}>
                                 SAVED CHATS
                             </NavLink>
                         </LinkContainer>

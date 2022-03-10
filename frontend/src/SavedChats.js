@@ -38,9 +38,13 @@ export default function SavedChats({setHistory}) {
                 .then((response) => console.log(response))
                 .catch((error) => console.log(error))
                 .finally(() => {
-                    setHistory(JSON.parse(chat.history));
                     handleLoadModalClose();
-                    navigate("/", {replace: true});
+                    navigate("/", {replace: false});
+                    setHistory(JSON.parse(chat.history));
+                    const savedLink = document.getElementById("saved-link")
+                    if (location.pathname !== "/saved" && savedLink.classList.contains("active")) {
+                        savedLink.classList.remove("active");
+                    }
                 })
         console.log("Chat loaded!");
     }
