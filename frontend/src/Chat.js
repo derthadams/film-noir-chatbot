@@ -139,7 +139,9 @@ export default function Chat({prompts, setPrompts, history, setHistory}) {
     }
 
     useEffect(() => {
-        displayPrompts();
+        if (history.length === 0) {
+            displayPrompts();
+        }
     }, [])
 
     return (
