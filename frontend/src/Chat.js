@@ -47,6 +47,8 @@ export default function Chat({prompts, setPrompts, history, setHistory}) {
         axios.post("/api", {clear: true})
                 .then((response) => {
                     if(response.data.length === 0) {
+                        setPrompts([]);
+                        clearTimeoutPointers();
                         setHistory([]);
                         console.log("History cleared");
                     }
