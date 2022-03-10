@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 
 import Button from "react-bootstrap/Button"
 import ButtonGroup from "react-bootstrap/ButtonGroup"
@@ -14,9 +14,12 @@ import axios from "axios"
 import ChatWindow from "./ChatWindow"
 import TextEntryBox from "./TextEntryBox";
 
-export default function Chat({history, setHistory}) {
+import promptScript from "./prompts";
+
+export default function Chat({prompts, setPrompts, history, setHistory}) {
     const [showModal, setShowModal] = useState(false);
     const [chatSubject, setChatSubject] = useState("");
+    const [timeoutPointers, setTimeoutPointers] = useState([]);
 
     const handleModalClose = () => setShowModal(false);
     const handleModalShow = () => setShowModal(true);
@@ -83,25 +86,65 @@ export default function Chat({history, setHistory}) {
     )
 
     const savePopover = (
-        <Popover id="save-popover">
-            <Popover.Header className="typewriter">
-                Save Chat
-            </Popover.Header>
-            <Popover.Body className="help-popover">
-                Saved chats can be viewed on the Saved Chats page.
-            </Popover.Body>
-        </Popover>
+            <Popover id="save-popover">
+                <Popover.Header className="typewriter">
+                    Save Chat
+                </Popover.Header>
+                <Popover.Body className="help-popover">
+                    Saved chats can be viewed on the Saved Chats page.
+                </Popover.Body>
+            </Popover>
     )
 
+    const addPrompt = (prompt) => {
+        setPrompts((prevState) =>
+                [...prevState,
+                    {
+                        user: false,
+                        text: prompt
+                    }
+                ]
+        );
+    }
+
+    const addTimeoutPointer = (timeoutPointer) => {
+        setTimeoutPointers((prevState) =>
+                [...prevState,
+                    timeoutPointer]
+        )
+    }
+
+    const clearTimeoutPointers = () => {
+        for (const pointer of timeoutPointers) {
+            clearTimeout(pointer);
+        }
+    }
+
+    const displayPrompts = () => {
+        let timeoutPointer = -1;
+        let totalDelay = 0;
+        for (const prompt of promptScript) {
+            totalDelay += prompt.delay;
+            timeoutPointer = setTimeout(() => {
+                addPrompt(prompt.text)
+            }, totalDelay);
+            addTimeoutPointer(timeoutPointer);
+        }
+    }
+
+    useEffect(() => {
+        displayPrompts();
+    }, [])
+
     return (
-        <Col xs={9} md={6} className="mx-auto rounded-3 mb-5 chat-container">
-            <div className="message-container" >
-                <Row className="mb-2 pe-3 clear-save-buttons">
-                    <Col xs={2} className="ms-auto">
-                        <ButtonGroup>
-                            <OverlayTrigger
-                                // delay={{show: 800}}
-                                trigger={["hover", "focus"]}
+            <Col xs={9} md={6} className="mx-auto rounded-3 mb-5 chat-container">
+                <div className="message-container">
+                    <Row className="mb-2 pe-3 clear-save-buttons">
+                        <Col xs={2} className="ms-auto">
+                            <ButtonGroup>
+                                <OverlayTrigger
+                                        // delay={{show: 800}}
+                                        trigger={["hover", "focus"]}
                                 placement="top"
                                 overlay={clearPopover}
                                 rootClose
@@ -120,17 +163,17 @@ export default function Chat({history, setHistory}) {
                                 rootClose
                             >
                                 <Button
-                                    variant="outline-light"
-                                    size="sm"
-                                    onClick={handleModalShow}
+                                        variant="outline-light"
+                                        size="sm"
+                                        onClick={handleModalShow}
                                 >
                                     <i className="bi bi-save chat-button-icon"> </i>
                                 </Button>
                             </OverlayTrigger>
-                        </ButtonGroup>
-                    </Col>
-                </Row>
-                <ChatWindow messages={history}/>
+                            </ButtonGroup>
+                        </Col>
+                    </Row>
+                    <ChatWindow messages={prompts.concat(history)}/>
             </div>
             <TextEntryBox sendMessage={sendMessage}/>
             <Modal show={showModal} onHide={handleModalClose} className={"typewriter"}>

@@ -13,6 +13,7 @@ import SavedChats from "./SavedChats";
 
 export default function ChatApp() {
     const [history, setHistory] = useState([]);
+    const [prompts, setPrompts] = useState([])
 
     return (
             <BrowserRouter basename="/">
@@ -22,7 +23,9 @@ export default function ChatApp() {
                         <Row>
                             <Routes>
                                 <Route path="/"
-                                       element={<Chat history={history}
+                                       element={<Chat prompts={prompts}
+                                                      setPrompts={setPrompts}
+                                                      history={history}
                                                       setHistory={setHistory}/>}/>
                                 <Route path="/saved"
                                        element={<SavedChats setHistory={setHistory}/>}/>
