@@ -120,6 +120,12 @@ export default function Chat({prompts, setPrompts, history, setHistory}) {
         }
     }
 
+    const handleUserTyping = () => {
+        if (history.length === 0) {
+            clearTimeoutPointers();
+        }
+    }
+
     const displayPrompts = () => {
         let timeoutPointer = -1;
         let totalDelay = 0;
@@ -174,18 +180,18 @@ export default function Chat({prompts, setPrompts, history, setHistory}) {
                         </Col>
                     </Row>
                     <ChatWindow messages={prompts.concat(history)}/>
-            </div>
-            <TextEntryBox sendMessage={sendMessage}/>
-            <Modal show={showModal} onHide={handleModalClose} className={"typewriter"}>
-                <Modal.Header closeButton closeVariant="white">
-                    <h3>Save Chat</h3>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form.Group>
-                        <Form.Label htmlFor="chat-subject">
-                            Subject
-                        </Form.Label>
-                        <Form.Control
+                </div>
+                <TextEntryBox sendMessage={sendMessage} handleUserTyping={handleUserTyping}/>
+                <Modal show={showModal} onHide={handleModalClose} className={"typewriter"}>
+                    <Modal.Header closeButton closeVariant="white">
+                        <h3>Save Chat</h3>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group>
+                            <Form.Label htmlFor="chat-subject">
+                                Subject
+                            </Form.Label>
+                            <Form.Control
                             type="text"
                             className="text-entry"
                             id="chat-subject"

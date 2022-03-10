@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form"
 import InputGroup from "react-bootstrap/InputGroup"
 import Row from "react-bootstrap/Row"
 
-export default function TextEntryBox({ sendMessage }) {
+export default function TextEntryBox({sendMessage, handleUserTyping}) {
     const [text, setText] = useState("")
 
     const handleSend = () => {
@@ -15,7 +15,10 @@ export default function TextEntryBox({ sendMessage }) {
 
     }
     const handleChange = (event) => {
-        setText(event.target.value)
+        setText(event.target.value);
+        if (text === "") {
+            handleUserTyping();
+        }
     }
     const handleKeyDown = (event) => {
         if(event.key === "Enter") {
