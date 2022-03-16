@@ -17,8 +17,11 @@ class Chatbot: # noqa
             self.chat_history_ids = self.chat_history_ids[:, discard_length:]
 
     def _encode_message(self, message):
-        return self.tokenizer.encode(message + self.tokenizer.eos_token,
-                                     return_tensors='pt')
+        user_message_input_ids = self.tokenizer.encode(message + self.tokenizer.eos_token,
+                                                       return_tensors='pt')
+        user_message_input_length = user_message_input_ids.size()[1]
+        self.queue.append(user_message_input_length)
+        return user_message_input_ids
 
     def clear_chat_history(self):
         self.chat_history_ids = torch.tensor([], dtype=torch.long)
@@ -38,8 +41,6 @@ class Chatbot: # noqa
 
     def get_response(self, message):
         user_message_input_ids = self._encode_message(message)
-        user_message_input_length = user_message_input_ids.size()[1]
-        self.queue.append(user_message_input_length)
 
         bot_input_ids = torch.cat([self.chat_history_ids, user_message_input_ids], dim=-1)
         prior_chat_history_length = bot_input_ids.size()[1]
