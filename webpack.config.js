@@ -4,7 +4,7 @@ const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 module.exports = {
     entry: {
-        chat: path.resolve(__dirname, './frontend/src/index.js'),  // path to our input file
+        chat: path.resolve(__dirname, './frontend/src/index.js'),
     },
     module: {
         rules: [
@@ -48,7 +48,7 @@ module.exports = {
     ],
     mode: "development",
     output: {
-        filename: '[name].bundle.js',  // output bundle file name
-        path: path.resolve(__dirname, './static/dist'),  // path to our Flask static directory
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, './static/dist'),
     },
 };
