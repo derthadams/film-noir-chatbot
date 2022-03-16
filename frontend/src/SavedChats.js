@@ -48,7 +48,6 @@ export default function SavedChats({setPrompts, setHistory, clearTimeouts}) {
                         savedLink.classList.remove("active");
                     }
                 })
-        console.log("Chat loaded!");
     }
 
     const deleteChat = () => {
@@ -70,17 +69,18 @@ export default function SavedChats({setPrompts, setHistory, clearTimeouts}) {
     }, [])
 
     return (
-        <Col className="message-container saved-chats-background mx-auto rounded-3 mb-5" xs={9} md={6}>
-            <div>
-            {chats.map(
-                    (chat) =>
-                <SavedChat id={chat.id}
-                           subject={chat.subject}
-                           date={chat.saved_date}
-                           history={JSON.parse(chat.history)}
-                           key={chat.id}
-                           handleLoadModalOpen={handleLoadModalOpen}
-                           handleDeleteModalOpen={handleDeleteModalOpen}/>
+            <Col className="message-container saved-chats-background mx-auto rounded-3 mb-5"
+                 xs={9} md={6}>
+                <div>
+                    {chats.map(
+                            (chat) =>
+                                    <SavedChat id={chat.id}
+                                               subject={chat.subject}
+                                               date={chat.saved_date}
+                                               history={JSON.parse(chat.history)}
+                                               key={chat.id}
+                                               handleLoadModalOpen={handleLoadModalOpen}
+                                               handleDeleteModalOpen={handleDeleteModalOpen}/>
             )}
             </div>
             <Modal show={showLoadModal} onHide={handleLoadModalClose} className={"typewriter"}>
