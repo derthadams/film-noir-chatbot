@@ -37,20 +37,13 @@ class Chatbot: # noqa
         return len(self.queue)
 
     def get_response(self, message):
-        # encode user message using tokenizer
         user_message_input_ids = self._encode_message(message)
-
-        # add an integer representing the length of user message to end of queue
         user_message_input_length = user_message_input_ids.size()[1]
         self.queue.append(user_message_input_length)
 
-        # prepare input tensor for bot by concatenating chat history and user message
         bot_input_ids = torch.cat([self.chat_history_ids, user_message_input_ids], dim=-1)
-
-        # calculate length of chat history before bot generates a response
         prior_chat_history_length = bot_input_ids.size()[1]
 
-        # generate a bot response and add it to the end of the chat history
         self.chat_history_ids = self.model.generate(
             bot_input_ids, max_length=1000,
             pad_token_id=self.tokenizer.eos_token_id,
@@ -61,16 +54,12 @@ class Chatbot: # noqa
             temperature=0.8
         )
 
-        # calculate length of bot response and add it to the queue
         bot_input_length = self.chat_history_ids.size()[1] - prior_chat_history_length
         self.queue.append(bot_input_length)
 
-        # return the bot response
         response = self.tokenizer.decode(self.chat_history_ids[:, bot_input_ids.shape[-1]:][0],
                                          skip_special_tokens=True)
 
-        # trim the head of the chat history if it's more than 10 messages long
         self._trim_chat_history()
-
         return response
 
