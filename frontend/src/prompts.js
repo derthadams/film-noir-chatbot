@@ -1,7 +1,7 @@
 const promptScript = [
     {
         text: "Talk to me.",
-        delay: 2000
+        delay: 10000
     },
     {
         text: "Don't be shy.",
