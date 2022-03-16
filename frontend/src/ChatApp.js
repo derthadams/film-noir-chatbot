@@ -28,7 +28,7 @@ export default function ChatApp() {
                 <Container>
                     <ChatNavBar/>
                     <div className="body-bg">
-                        <Row>
+                        <Row id={"lower-half"}>
                             <Routes>
                                 <Route path="/"
                                        element={<Chat prompts={prompts}
