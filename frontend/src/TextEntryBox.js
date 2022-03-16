@@ -15,10 +15,10 @@ export default function TextEntryBox({sendMessage, handleUserTyping}) {
 
     }
     const handleChange = (event) => {
-        setText(event.target.value);
         if (text === "") {
             handleUserTyping();
         }
+        setText(event.target.value);
     }
     const handleKeyDown = (event) => {
         if(event.key === "Enter") {
