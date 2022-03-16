@@ -16,16 +16,14 @@ const convertDate = (date) => {
     });
 }
 
-export default function SavedChat(
-        {
-            id,
-            subject,
-            date,
-            history,
-            handleLoadModalOpen,
-            handleDeleteModalOpen
-        }
-        ) {
+export default function SavedChat({
+                                      id,
+                                      subject,
+                                      date,
+                                      history,
+                                      handleLoadModalOpen,
+                                      handleDeleteModalOpen
+                                  }) {
     return (
             <Card className={"typewriter mb-2"}>
                 <Card.Body>
@@ -34,7 +32,7 @@ export default function SavedChat(
                             <Col xs={8}>
                                 <h5>
                                     <strong>
-                                        { subject }
+                                        {subject}
                                     </strong>
                                 </h5>
                             </Col>
