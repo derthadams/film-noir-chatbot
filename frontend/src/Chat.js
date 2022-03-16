@@ -64,7 +64,6 @@ export default function Chat({
             saved_date: today,
             history: JSON.stringify(history)
         }
-        console.log(chat);
         axios.post('http://localhost:8123/', chat)
                 .then((response) => console.log(response))
                 .catch((error) => console.log(error.response.data))
@@ -74,28 +73,17 @@ export default function Chat({
 
     const sendMessage = async (message) => {
         addMessageToHistory(true, message);
-        const { user, text } = await getBotResponse(message);
-        addMessageToHistory( user, text );
+        const {user, text} = await getBotResponse(message);
+        addMessageToHistory(user, text);
     }
 
-    const clearPopover = (
-        <Popover id="clear-popover">
-            <Popover.Header className="typewriter">
-                Clear Chat
-            </Popover.Header>
-            <Popover.Body className="help-popover">
-                This will end the current conversation.
-            </Popover.Body>
-        </Popover>
-    )
-
-    const savePopover = (
-            <Popover id="save-popover">
+    const popover = (id, header, body) => (
+            <Popover id={id + "-popover"}>
                 <Popover.Header className="typewriter">
-                    Save Chat
+                    {header}
                 </Popover.Header>
                 <Popover.Body className="help-popover">
-                    Saved chats can be viewed on the Saved Chats page.
+                    {body}
                 </Popover.Body>
             </Popover>
     )
@@ -149,33 +137,33 @@ export default function Chat({
                         <Col xs={2} className="ms-auto">
                             <ButtonGroup>
                                 <OverlayTrigger
-                                        // delay={{show: 800}}
                                         trigger={["hover", "focus"]}
-                                placement="top"
-                                overlay={clearPopover}
-                                rootClose
-                            >
-                                <Button variant="outline-light"
-                                    size="sm"
-                                    onClick={clearHistory}>
-                                    <i className="bi bi-x-circle chat-button-icon"> </i>
-                                </Button>
-                            </OverlayTrigger>
-                            <OverlayTrigger
-                                // delay={{show: 1500}}
-                                trigger={["hover", "focus"]}
-                                placement="top"
-                                overlay={savePopover}
-                                rootClose
-                            >
-                                <Button
-                                        variant="outline-light"
-                                        size="sm"
-                                        onClick={handleModalShow}
+                                        placement="top"
+                                        overlay={popover('clear', 'Clear Chat',
+                                                'This will end the current conversation.')}
+                                        rootClose
                                 >
-                                    <i className="bi bi-save chat-button-icon"> </i>
-                                </Button>
-                            </OverlayTrigger>
+                                    <Button variant="outline-light"
+                                            size="sm"
+                                            onClick={clearHistory}>
+                                        <i className="bi bi-x-circle chat-button-icon"> </i>
+                                    </Button>
+                                </OverlayTrigger>
+                                <OverlayTrigger
+                                        trigger={["hover", "focus"]}
+                                        placement="top"
+                                        overlay={popover('save', 'Save Chat',
+                                                'Saved chats can be viewed on the Saved Chats page.')}
+                                        rootClose
+                                >
+                                    <Button
+                                            variant="outline-light"
+                                            size="sm"
+                                            onClick={handleModalShow}
+                                    >
+                                        <i className="bi bi-save chat-button-icon"> </i>
+                                    </Button>
+                                </OverlayTrigger>
                             </ButtonGroup>
                         </Col>
                     </Row>
