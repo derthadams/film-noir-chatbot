@@ -58,7 +58,7 @@ conversation and can pick up where it left off.
 
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/39425112/166335390-ff9d696f-3c1b-44fc-b7a3-201150b649b5.gif" width="680" alt="Save and load chats">
+<img src="https://user-images.githubusercontent.com/39425112/166344202-e3d3fa01-6790-4f97-90dc-81a59b5cc405.gif" width="680" alt="Save and load chats">
 
 </div>
 
