@@ -10,7 +10,7 @@ each eight-line window and learned how to predict the last line of dialogue in t
 based on the previous seven lines.
 
 When chatting with the bot you can tell that the fine-tuned model has picked up a lot of the 
-Film Noir style and content. Conversations inevitably veer towards themes of crime and betrayal, 
+Film Noir style and content. Conversations tend to veer towards themes of crime and betrayal, 
 and the vocabulary contains quite a bit of 1940's slang. The chatbot has no concept of character, 
 so it will sometimes abruptly shift personas between detective and femme fatale, or address the 
 user with different names. 
