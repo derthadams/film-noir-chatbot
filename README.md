@@ -1,22 +1,19 @@
 # Film Noir Chatbot
-A generative chatbot that speaks like a character from a classic 1940's Film Noir.
+An NLP-based generative chatbot that speaks like a character from a classic 1940's Film Noir.
 
 ## Creating the chatbot
-To create the chatbot I fine-tuned Microsoft's DialoGPT-2 NLP model with a corpus of Film Noir
-screenplays. I prepared the training data by stripping everything but the dialogue from the 
-screenplays and creating a CSV file with one line of dialogue per row. Then I generated training
-examples using a sliding window that was eight lines long. During training the model looked at 
-each eight-line window and learned how to predict the last line of dialogue in the window 
-based on the previous seven lines.
+To create the chatbot I used a corpus of Film Noir screenplays to fine-tune Hugging Face's version
+of Microsoft's DialoGPT-2 NLP model.
 
-When chatting with the bot you can tell that the fine-tuned model has picked up a lot of the 
-Film Noir style and content. Conversations tend to veer towards themes of crime and betrayal, 
+Even though the training corpus was fairly small (10,000 lines of dialogue) the fine-tuned model 
+has picked up quite a lot of Film Noir style and content. 
+Conversations tend to veer towards themes of crime and betrayal, 
 and the vocabulary contains quite a bit of 1940's slang. The chatbot has no concept of character, 
 so it will sometimes abruptly shift personas between detective and femme fatale, or address the 
 user with different names. 
 
 The current model does tend to suffer from overfitting – 
-the chatbot will sometimes regurgitate a memorized line of dialogue straight from a screenplay 
+the chatbot will sometimes retrieve a memorized line of dialogue straight from a screenplay 
 instead of coming up with a novel response. I plan to redo the fine-tuning using more data and a 
 less-complex base model in order to address this problem.
 
@@ -27,11 +24,11 @@ Rest API. My frontend, which I wrote in React, uses the API to send messages fro
 model and get the responses back. The frontend also uses SQLite database to enable the user to 
 save chats and load them again later.
 
-## Initial prompts
-
 I thought the user interface should be as simple as possible, and really focus the user on the 
 chat experience itself. Ideally I wanted the conversation with the bot to be the interface, not 
 the text and buttons on the screen.
+
+## Initial prompts
 
 When the app first loads the chat window is already active, and the user can just jump in and 
 start chatting. But if the user hesitates for more than 10 seconds, the bot takes the initiative 
