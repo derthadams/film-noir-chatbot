@@ -3,7 +3,7 @@ An NLP-based generative chatbot that speaks like a character from a classic 1940
 
 ## Creating the chatbot
 To create the chatbot I used a corpus of Film Noir screenplays to fine-tune Hugging Face's version
-of Microsoft's DialoGPT-2 NLP model.
+of Microsoft's DialoGPT NLP model.
 
 Even though the training corpus was fairly small (10,000 lines of dialogue) the fine-tuned model 
 has picked up quite a lot of Film Noir style and content. 
